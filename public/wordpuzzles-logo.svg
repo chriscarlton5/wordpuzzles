@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="60" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .letter { font-family: Arial, sans-serif; font-weight: bold; font-size: 40px; }
+    .puzzles { font-family: Arial, sans-serif; font-weight: normal; font-size: 40px; }
+  </style>
+  <text x="10" y="45">
+    <tspan class="letter" fill="#00A4A6">W</tspan>
+    <tspan class="letter" fill="#48BB78">O</tspan>
+    <tspan class="letter" fill="#ECC94B">R</tspan>
+    <tspan class="letter" fill="#F56565">D</tspan>
+    <tspan class="puzzles" fill="#2D3748">Puzzles</tspan>
+  </text>
+</svg> 

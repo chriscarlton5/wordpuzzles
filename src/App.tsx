@@ -159,11 +159,11 @@ const GameComponent = () => {
 
   return (
     <Container maxW="container.lg" py={8}>
-      <Box position="relative">
+      <Box position="relative" display="flex" justifyContent="center" alignItems="flex-start">
         {/* Left side - Welcome and Info */}
         <Box 
           position={{ base: 'static', md: 'absolute' }} 
-          left={0} 
+          left={{ base: 'auto', md: 'calc(50% - 600px)' }} 
           top={0} 
           width={{ base: 'full', md: '350px' }}
           mb={{ base: 8, md: 0 }}
@@ -171,10 +171,11 @@ const GameComponent = () => {
           borderRadius="lg"
           p={6}
           boxShadow="sm"
+          zIndex={1}
         >
           <VStack align="stretch" spacing={8}>
             <Box>
-              <Heading size="lg" mb={3} color="gray.700">Welcome to WordPlay!</Heading>
+              <Heading size="lg" mb={3} color="gray.700">Welcome to WordPuzzles!</Heading>
               <Text color="gray.600" fontSize="md" lineHeight="tall">
                 It's for people that love Wordle, but hate limits. Enjoy unlimited games, challenge others and learn about words.
               </Text>
@@ -234,7 +235,8 @@ const GameComponent = () => {
         <Box 
           maxW="600px" 
           mx="auto"
-          pl={{ base: 0, md: '100px' }}
+          pl={{ base: 0, md: '0' }}
+          position="relative"
         >
           <VStack spacing={8} align="center">
             <GameBoard
@@ -293,14 +295,7 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <GameComponent />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/" element={<GameComponent />} />
           </Routes>
         </Box>
       </Router>
