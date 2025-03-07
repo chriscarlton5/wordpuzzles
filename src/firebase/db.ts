@@ -5,7 +5,6 @@ import {
   updateDoc, 
   collection, 
   query, 
-  where, 
   getDocs,
   increment,
   serverTimestamp

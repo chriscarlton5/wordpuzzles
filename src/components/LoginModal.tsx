@@ -12,7 +12,6 @@ import {
   IconButton,
   Image,
   Divider,
-  Box,
   HStack
 } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';

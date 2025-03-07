@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isRateLimited() {
+      let requests = request.time.toMillis() / 1000;
+      let userRequests = get(/databases/$(database)/documents/rateLimits/$(request.auth.uid)).data.requests;
+      return userRequests > 1000; // 1000 requests per day
+    }
+    
+    // Rate limiting collection
+    match /rateLimits/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId);
+    }
+    
+    // User profiles and stats
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) && !isRateLimited();
+      
+      // Stats subcollection
+      match /stats/{document=**} {
+        allow read: if isOwner(userId);
+        allow write: if isOwner(userId) && !isRateLimited();
+      }
+      
+      // Games subcollection
+      match /games/{gameId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) && !isRateLimited();
+        allow update, delete: if false; // Games should be immutable once created
+      }
+    }
+  }
+} 

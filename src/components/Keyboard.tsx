@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button, HStack, VStack } from '@chakra-ui/react';
 
 interface KeyboardProps {
