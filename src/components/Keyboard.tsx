@@ -28,9 +28,9 @@ export const Keyboard = ({ onKeyPress, usedLetters }: KeyboardProps) => {
 
   const getKeyWidth = (key: string) => {
     if (key === 'ENTER' || key === 'DELETE') {
-      return { base: '54px', md: '80px' };
+      return { base: '65px', md: '80px' };
     }
-    return { base: '30px', md: '40px' };
+    return { base: '36px', md: '40px' };
   };
 
   return (
@@ -40,9 +40,9 @@ export const Keyboard = ({ onKeyPress, usedLetters }: KeyboardProps) => {
       mx="auto" 
       px={{ base: 0, md: 2 }}
     >
-      <VStack spacing={{ base: 1, md: 2 }}>
+      <VStack spacing={{ base: 1.5, md: 2 }}>
         {KEYBOARD_ROWS.map((row, i) => (
-          <HStack key={i} spacing={{ base: 1, md: 2 }} justifyContent="center">
+          <HStack key={i} spacing={{ base: 1.5, md: 2 }} justifyContent="center">
             {row.map((key) => (
               <Button
                 key={key}
@@ -50,15 +50,15 @@ export const Keyboard = ({ onKeyPress, usedLetters }: KeyboardProps) => {
                 bg={getKeyColor(key)}
                 color={getKeyColor(key) === 'white' ? 'gray.800' : 'white'}
                 w={getKeyWidth(key)}
-                h={{ base: '42px', md: '45px' }}
+                h={{ base: '50px', md: '45px' }}
                 minW={0}
                 p={0}
-                fontSize={{ base: key.length > 1 ? '11px' : '14px', md: key.length > 1 ? 'sm' : 'md' }}
+                fontSize={{ base: key.length > 1 ? '13px' : '16px', md: key.length > 1 ? 'sm' : 'md' }}
                 fontWeight="medium"
                 _hover={{ opacity: 0.8 }}
                 _active={{ transform: 'scale(0.95)' }}
                 transition="all 0.2s"
-                borderRadius={{ base: 'sm', md: 'md' }}
+                borderRadius={{ base: 'md', md: 'md' }}
               >
                 {key}
               </Button>

@@ -185,23 +185,52 @@ const GameComponent = () => {
       <Box 
         position="relative" 
         display="flex" 
-        flexDirection={{ base: 'column', md: 'row' }} 
-        justifyContent={{ base: 'flex-start', md: 'center' }}
-        alignItems={{ base: 'center', md: 'flex-start' }}
+        flexDirection={{ base: "column", md: "row" }} 
+        justifyContent={{ base: "flex-start", md: "center" }}
+        alignItems={{ base: "center", md: "flex-start" }}
       >
-        {/* Left side - Welcome and Info */}
+        {/* Center - Game Board - Now first on mobile */}
+        <Box 
+          maxW={{ base: "100%", md: "600px" }}
+          mx="auto"
+          pl={{ md: '0' }}
+          position="relative"
+          width={{ base: "92%", md: "100%" }}
+          order={{ base: 1, md: 2 }}
+        >
+          <VStack spacing={{ base: 3, md: 8 }} align="center">
+            <GameBoard
+              guesses={guesses}
+              currentGuess={currentGuess}
+              maxGuesses={MAX_GUESSES}
+              wordLength={WORD_LENGTH}
+              solution={solution}
+              letterStatuses={letterStatuses}
+            />
+            
+            <Box width="100%">
+              <Keyboard
+                onKeyPress={handleKeyPress}
+                usedLetters={usedLetters}
+              />
+            </Box>
+          </VStack>
+        </Box>
+
+        {/* Left side - Welcome and Info - Now second on mobile */}
         <Box 
           position={{ base: 'static', md: 'absolute' }} 
           left={{ md: 'calc(50% - 600px)' }} 
           top={0} 
           width={{ base: '92%', md: '350px' }}
           mb={{ base: 3, md: 0 }}
-          mt={{ base: 2, md: 0 }}
+          mt={{ base: 4, md: 0 }}
           bg="white"
           borderRadius="lg"
           p={{ base: 3, md: 6 }}
           boxShadow="sm"
           zIndex={1}
+          order={{ base: 2, md: 1 }}
         >
           <VStack align="stretch" spacing={{ base: 3, md: 8 }}>
             <Box>
@@ -260,33 +289,6 @@ const GameComponent = () => {
             >
               New Game
             </Button>
-          </VStack>
-        </Box>
-
-        {/* Center - Game Board */}
-        <Box 
-          maxW={{ base: "100%", md: "600px" }}
-          mx="auto"
-          pl={{ md: '0' }}
-          position="relative"
-          width={{ base: "92%", md: "100%" }}
-        >
-          <VStack spacing={{ base: 3, md: 8 }} align="center">
-            <GameBoard
-              guesses={guesses}
-              currentGuess={currentGuess}
-              maxGuesses={MAX_GUESSES}
-              wordLength={WORD_LENGTH}
-              solution={solution}
-              letterStatuses={letterStatuses}
-            />
-            
-            <Box width="100%">
-              <Keyboard
-                onKeyPress={handleKeyPress}
-                usedLetters={usedLetters}
-              />
-            </Box>
           </VStack>
         </Box>
       </Box>
