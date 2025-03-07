@@ -7,11 +7,11 @@ import { Navbar } from './components/Navbar';
 import { HowToPlay } from './pages/HowToPlay';
 import { WhatIsThis } from './pages/WhatIsThis';
 import { WhyBuildThis } from './pages/WhyBuildThis';
+import { GroupChallenge } from './pages/GroupChallenge';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { AuthProvider, useAuth } from './firebase/AuthContext';
 import { 
-  getRandomWord, 
   isValidWord, 
   checkGuess, 
   updateUsedLetters,
@@ -23,7 +23,10 @@ import {
   getWordFromGameId,
   copyToClipboard,
   getGameIdFromUrl,
-  generateShareUrl
+  generateShareUrl,
+  getDailyChallengeGameId,
+  getDailyChallengeWord,
+  isDailyChallenge
 } from './utils/gameSharing';
 import { updateGameStats } from './firebase/db';
 import { Stats } from './components/Stats';
@@ -34,12 +37,13 @@ const MAX_GUESSES = 6;
 const GameComponent = () => {
   const [gameId, setGameId] = useState<number>(() => {
     const urlGameId = getGameIdFromUrl();
-    return urlGameId || generateGameId();
+    return urlGameId || getDailyChallengeGameId();
   });
   const [solution, setSolution] = useState(() => {
     const urlGameId = getGameIdFromUrl();
-    return urlGameId ? getWordFromGameId(urlGameId) : getRandomWord();
+    return urlGameId ? getWordFromGameId(urlGameId) : getDailyChallengeWord();
   });
+  const [isDaily, setIsDaily] = useState(() => isDailyChallenge(gameId));
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState('');
   const [gameStatus, setGameStatus] = useState<GameStatus>('playing');
@@ -47,6 +51,19 @@ const GameComponent = () => {
   const [letterStatuses, setLetterStatuses] = useState<Record<number, LetterStatus[]>>({});
   const toast = useToast();
   const { user } = useAuth();
+
+  // Check if we need to update to today's daily challenge
+  useEffect(() => {
+    if (isDaily && gameId !== getDailyChallengeGameId()) {
+      setGameId(getDailyChallengeGameId());
+      setSolution(getDailyChallengeWord());
+      setGuesses([]);
+      setCurrentGuess('');
+      setGameStatus('playing');
+      setUsedLetters({});
+      setLetterStatuses({});
+    }
+  }, [isDaily]);
 
   const handleKeyPress = (key: string) => {
     if (gameStatus !== 'playing') return;
@@ -129,6 +146,7 @@ const GameComponent = () => {
     setGameStatus('playing');
     setUsedLetters({});
     setLetterStatuses({});
+    setIsDaily(false);
   };
 
   const handleCopyGameId = async () => {
@@ -184,7 +202,7 @@ const GameComponent = () => {
             
             <Box borderTop="1px" borderColor="gray.100" pt={6}>
               <Text color="gray.700" fontSize="md" mb={1}>
-                Daily Puzzle #{gameId} - {new Date().toLocaleDateString()}
+                {isDaily ? 'Daily Challenge' : 'Custom Game'} #{gameId} - {new Date().toLocaleDateString()}
               </Text>
               <Text color="gray.500" fontSize="sm" display="flex" alignItems="center" gap={2}>
                 Game ID: {gameId}
@@ -202,9 +220,11 @@ const GameComponent = () => {
                   📋
                 </Box>
               </Text>
-              <Text color="gray.500" fontSize="sm" mt={3}>
-                A new word is selected every day at midnight Eastern Time
-              </Text>
+              {isDaily && (
+                <Text color="gray.500" fontSize="sm" mt={3}>
+                  A new word is selected every day at midnight Eastern Time
+                </Text>
+              )}
             </Box>
 
             <Button 
@@ -285,20 +305,19 @@ export default function App() {
         <Box minH="100vh" bg="gray.50">
           <Navbar />
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/" element={<GameComponent />} />
             <Route path="/how-to-play" element={<HowToPlay />} />
             <Route path="/what-is-this" element={<WhatIsThis />} />
             <Route path="/why-build-this" element={<WhyBuildThis />} />
-            <Route
-              path="/stats"
-              element={
-                <ProtectedRoute>
-                  <Stats />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/" element={<GameComponent />} />
+            <Route path="/group-challenge" element={<GroupChallenge />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/stats" element={
+              <ProtectedRoute>
+                <Stats />
+              </ProtectedRoute>
+            } />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Box>
       </Router>

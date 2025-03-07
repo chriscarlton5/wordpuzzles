@@ -58,7 +58,7 @@ export const Navbar = () => {
         <Container maxW="container.lg">
           <Flex justify="space-between" align="center">
             <HStack spacing={8}>
-              <Flex align="center">
+              <Flex align="center" cursor="pointer" onClick={() => navigate('/')}>
                 <Text fontSize="2xl" fontWeight="bold" color="white">
                   <Text as="span" color="cyan.400">W</Text>
                   <Text as="span" color="green.400">O</Text>
@@ -86,15 +86,42 @@ export const Navbar = () => {
                     isOpen={isAboutOpen}
                   />
                 </Box>
-                <Button variant="ghost" size="sm" color="gray.300" _hover={{ bg: 'whiteAlpha.200', color: 'white' }}>Games</Button>
-                <Button variant="ghost" size="sm" color="gray.300" _hover={{ bg: 'whiteAlpha.200', color: 'white' }}>Stats</Button>
-                <Button variant="ghost" size="sm" color="gray.300" _hover={{ bg: 'whiteAlpha.200', color: 'white' }}>FAQ</Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  color="gray.300" 
+                  _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+                  onClick={() => navigate('/games')}
+                >
+                  Games
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  color="gray.300" 
+                  _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+                  onClick={() => navigate('/stats')}
+                >
+                  Stats
+                </Button>
               </HStack>
             </HStack>
             
             <HStack spacing={4}>
-              <Button colorScheme="teal" size="sm">New Game</Button>
-              <Button colorScheme="purple" size="sm">Group Challenge</Button>
+              <Button 
+                colorScheme="teal" 
+                size="sm"
+                onClick={() => navigate('/new-game')}
+              >
+                New Game
+              </Button>
+              <Button 
+                colorScheme="purple" 
+                size="sm"
+                onClick={() => navigate('/group-challenge')}
+              >
+                Group Challenge
+              </Button>
               {user ? (
                 <Menu>
                   <MenuButton
