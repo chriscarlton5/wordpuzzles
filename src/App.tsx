@@ -177,22 +177,33 @@ const GameComponent = () => {
   }, [currentGuess, guesses, solution, gameStatus]);
 
   return (
-    <Container maxW="container.lg" py={8}>
-      <Box position="relative" display="flex" justifyContent="center" alignItems="flex-start">
+    <Container 
+      maxW="container.lg" 
+      py={{ base: 2, md: 8 }}
+      px={{ base: 0, md: 8 }}
+    >
+      <Box 
+        position="relative" 
+        display="flex" 
+        flexDirection={{ base: 'column', md: 'row' }} 
+        justifyContent={{ base: 'flex-start', md: 'center' }}
+        alignItems={{ base: 'center', md: 'flex-start' }}
+      >
         {/* Left side - Welcome and Info */}
         <Box 
           position={{ base: 'static', md: 'absolute' }} 
-          left={{ base: 'auto', md: 'calc(50% - 600px)' }} 
+          left={{ md: 'calc(50% - 600px)' }} 
           top={0} 
-          width={{ base: 'full', md: '350px' }}
-          mb={{ base: 8, md: 0 }}
+          width={{ base: '92%', md: '350px' }}
+          mb={{ base: 3, md: 0 }}
+          mt={{ base: 2, md: 0 }}
           bg="white"
           borderRadius="lg"
-          p={6}
+          p={{ base: 3, md: 6 }}
           boxShadow="sm"
           zIndex={1}
         >
-          <VStack align="stretch" spacing={8}>
+          <VStack align="stretch" spacing={{ base: 3, md: 8 }}>
             <Box>
               <Heading size="lg" mb={3} color="gray.700">Welcome to WordPuzzles!</Heading>
               <Text color="gray.600" fontSize="md" lineHeight="tall">
@@ -200,7 +211,7 @@ const GameComponent = () => {
               </Text>
             </Box>
             
-            <Box borderTop="1px" borderColor="gray.100" pt={6}>
+            <Box>
               <Text color="gray.700" fontSize="md" mb={1}>
                 {isDaily ? 'Daily Challenge' : 'Custom Game'} #{gameId} - {new Date().toLocaleDateString()}
               </Text>
@@ -254,12 +265,13 @@ const GameComponent = () => {
 
         {/* Center - Game Board */}
         <Box 
-          maxW="600px" 
+          maxW={{ base: "100%", md: "600px" }}
           mx="auto"
-          pl={{ base: 0, md: '0' }}
+          pl={{ md: '0' }}
           position="relative"
+          width={{ base: "92%", md: "100%" }}
         >
-          <VStack spacing={8} align="center">
+          <VStack spacing={{ base: 3, md: 8 }} align="center">
             <GameBoard
               guesses={guesses}
               currentGuess={currentGuess}
