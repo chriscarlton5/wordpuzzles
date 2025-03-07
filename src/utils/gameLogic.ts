@@ -1,4 +1,4 @@
-import { WORD_LIST } from './words';
+import { WORD_LIST, SOLUTION_WORDS } from './words';
 
 export type LetterStatus = 'correct' | 'present' | 'absent' | undefined;
 export type GameStatus = 'playing' | 'won' | 'lost';
@@ -12,7 +12,7 @@ export interface GameState {
 }
 
 export const getRandomWord = (): string => {
-  return WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+  return SOLUTION_WORDS[Math.floor(Math.random() * SOLUTION_WORDS.length)];
 };
 
 export const isValidWord = (word: string): boolean => {
