@@ -8,6 +8,7 @@ import { HowToPlay } from './pages/HowToPlay';
 import { WhatIsThis } from './pages/WhatIsThis';
 import { WhyBuildThis } from './pages/WhyBuildThis';
 import Login from './components/Login';
+import SignUp from './components/SignUp';
 import { AuthProvider, useAuth } from './firebase/AuthContext';
 import { 
   getRandomWord, 
@@ -277,6 +278,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 export default function App() {
+  console.log('App component rendered');
   return (
     <AuthProvider>
       <Router>
@@ -284,6 +286,7 @@ export default function App() {
           <Navbar />
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/how-to-play" element={<HowToPlay />} />
             <Route path="/what-is-this" element={<WhatIsThis />} />
             <Route path="/why-build-this" element={<WhyBuildThis />} />
