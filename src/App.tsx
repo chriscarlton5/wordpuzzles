@@ -198,7 +198,7 @@ const GameComponent = () => {
           width={{ base: "92%", md: "100%" }}
           order={{ base: 1, md: 2 }}
         >
-          <VStack spacing={{ base: 3, md: 8 }} align="center">
+          <VStack spacing={{ base: 4, md: 8 }} align="center">
             <GameBoard
               guesses={guesses}
               currentGuess={currentGuess}
