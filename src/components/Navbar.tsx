@@ -10,8 +10,19 @@ import {
   MenuButton, 
   MenuList, 
   MenuItem, 
-  useToast 
+  useToast,
+  IconButton,
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
+  VStack,
+  useBreakpointValue
 } from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { NavDropdown } from './NavDropdown';
 import { useAuth } from '../firebase/AuthContext';
@@ -28,9 +39,11 @@ const aboutItems = [
 export const Navbar = () => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const toast = useToast();
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const handleLogout = async () => {
     try {
@@ -52,6 +65,78 @@ export const Navbar = () => {
     }
   };
 
+  const NavigationItems = () => (
+    <>
+      <Box 
+        position="relative"
+        onMouseEnter={() => !isMobile && setIsAboutOpen(true)}
+        onMouseLeave={() => !isMobile && setIsAboutOpen(false)}
+      >
+        <Button
+          variant="ghost"
+          size="sm"
+          color="gray.300"
+          _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+          onClick={() => isMobile && navigate('/how-to-play')}
+          w={isMobile ? "full" : "auto"}
+          justifyContent={isMobile ? "flex-start" : "center"}
+        >
+          About
+        </Button>
+        {!isMobile && (
+          <NavDropdown
+            items={aboutItems}
+            isOpen={isAboutOpen}
+          />
+        )}
+      </Box>
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        color="gray.300" 
+        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        onClick={() => navigate('/games')}
+        w={isMobile ? "full" : "auto"}
+        justifyContent={isMobile ? "flex-start" : "center"}
+      >
+        Games
+      </Button>
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        color="gray.300" 
+        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        onClick={() => navigate('/stats')}
+        w={isMobile ? "full" : "auto"}
+        justifyContent={isMobile ? "flex-start" : "center"}
+      >
+        Stats
+      </Button>
+      {isMobile && (
+        <>
+          <Button 
+            colorScheme="teal" 
+            size="sm"
+            onClick={() => navigate('/new-game')}
+            w="full"
+            justifyContent="flex-start"
+          >
+            New Game
+          </Button>
+          <Button 
+            colorScheme="purple" 
+            size="sm"
+            onClick={() => navigate('/group-challenge')}
+            w="full"
+            justifyContent="flex-start"
+          >
+            Group Challenge
+          </Button>
+        </>
+      )}
+    </>
+  );
+
   return (
     <>
       <Box bg="gray.800" py={2} borderBottom="1px solid" borderColor="whiteAlpha.200">
@@ -67,61 +152,40 @@ export const Navbar = () => {
                   <Text as="span" color="white">Puzzles</Text>
                 </Text>
               </Flex>
-              <HStack spacing={6} color="whiteAlpha.800">
-                <Box 
-                  position="relative"
-                  onMouseEnter={() => setIsAboutOpen(true)}
-                  onMouseLeave={() => setIsAboutOpen(false)}
-                >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    color="gray.300"
-                    _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                  >
-                    About
-                  </Button>
-                  <NavDropdown
-                    items={aboutItems}
-                    isOpen={isAboutOpen}
-                  />
-                </Box>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  color="gray.300" 
-                  _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                  onClick={() => navigate('/games')}
-                >
-                  Games
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  color="gray.300" 
-                  _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                  onClick={() => navigate('/stats')}
-                >
-                  Stats
-                </Button>
-              </HStack>
+              {!isMobile && (
+                <HStack spacing={6} color="whiteAlpha.800">
+                  <NavigationItems />
+                </HStack>
+              )}
             </HStack>
             
             <HStack spacing={4}>
-              <Button 
-                colorScheme="teal" 
-                size="sm"
-                onClick={() => navigate('/new-game')}
-              >
-                New Game
-              </Button>
-              <Button 
-                colorScheme="purple" 
-                size="sm"
-                onClick={() => navigate('/group-challenge')}
-              >
-                Group Challenge
-              </Button>
+              {isMobile ? (
+                <IconButton
+                  aria-label="Open menu"
+                  icon={<HamburgerIcon />}
+                  variant="ghost"
+                  color="white"
+                  onClick={onOpen}
+                />
+              ) : (
+                <>
+                  <Button 
+                    colorScheme="teal" 
+                    size="sm"
+                    onClick={() => navigate('/new-game')}
+                  >
+                    New Game
+                  </Button>
+                  <Button 
+                    colorScheme="purple" 
+                    size="sm"
+                    onClick={() => navigate('/group-challenge')}
+                  >
+                    Group Challenge
+                  </Button>
+                </>
+              )}
               {user ? (
                 <Menu>
                   <MenuButton
@@ -157,6 +221,20 @@ export const Navbar = () => {
           </Flex>
         </Container>
       </Box>
+
+      {/* Mobile Navigation Drawer */}
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent bg="gray.800">
+          <DrawerCloseButton color="white" />
+          <DrawerHeader color="white">Menu</DrawerHeader>
+          <DrawerBody>
+            <VStack spacing={4} align="stretch">
+              <NavigationItems />
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
 
       <LoginModal 
         isOpen={isLoginModalOpen} 
