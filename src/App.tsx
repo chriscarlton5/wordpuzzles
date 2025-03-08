@@ -179,7 +179,7 @@ const GameComponent = () => {
   return (
     <Container 
       maxW="container.lg" 
-      py={{ base: 2, md: 8 }}
+      py={{ base: 6, md: 8 }}
       px={{ base: 0, md: 8 }}
     >
       <Box 
@@ -198,7 +198,7 @@ const GameComponent = () => {
           width={{ base: "92%", md: "100%" }}
           order={{ base: 1, md: 2 }}
         >
-          <VStack spacing={{ base: 4, md: 8 }} align="center">
+          <VStack spacing={{ base: 6, md: 8 }} align="center">
             <GameBoard
               guesses={guesses}
               currentGuess={currentGuess}
