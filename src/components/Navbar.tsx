@@ -80,39 +80,84 @@ export const Navbar = () => {
   const NavigationItems = () => (
     <>
       {isMobile ? (
-        <Accordion allowToggle>
-          <AccordionItem border="none">
-            <AccordionButton
-              color="gray.300"
-              _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-              px={0}
-            >
-              <Box flex="1" textAlign="left">
-                About
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel pb={4} px={0}>
-              <VStack align="stretch" spacing={2}>
-                {aboutItems.map((item) => (
-                  <Button
-                    key={item.href}
-                    variant="ghost"
-                    size="sm"
-                    color="gray.300"
-                    _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                    onClick={() => handleNavigation(item.href)}
-                    w="full"
-                    justifyContent="flex-start"
-                    pl={4}
-                  >
-                    {item.label}
-                  </Button>
-                ))}
-              </VStack>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
+        <>
+          <Accordion allowToggle width="100%">
+            <AccordionItem border="none">
+              <AccordionButton
+                color="gray.300"
+                _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+                px={0}
+                py={2}
+              >
+                <Text fontSize="sm" flex="1" textAlign="left">
+                  About
+                </Text>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel pb={4} px={0}>
+                <VStack align="stretch" spacing={2}>
+                  {aboutItems.map((item) => (
+                    <Button
+                      key={item.href}
+                      variant="ghost"
+                      size="sm"
+                      color="gray.300"
+                      _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+                      onClick={() => handleNavigation(item.href)}
+                      w="full"
+                      justifyContent="flex-start"
+                      pl={4}
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
+                </VStack>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            color="gray.300" 
+            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+            onClick={() => handleNavigation('/games')}
+            w="full"
+            justifyContent="flex-start"
+            px={0}
+          >
+            Games
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            color="gray.300" 
+            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+            onClick={() => handleNavigation('/stats')}
+            w="full"
+            justifyContent="flex-start"
+            px={0}
+          >
+            Stats
+          </Button>
+          <Button 
+            colorScheme="teal" 
+            size="sm"
+            onClick={() => handleNavigation('/new-game')}
+            w="full"
+            justifyContent="flex-start"
+          >
+            New Game
+          </Button>
+          <Button 
+            colorScheme="purple" 
+            size="sm"
+            onClick={() => handleNavigation('/group-challenge')}
+            w="full"
+            justifyContent="flex-start"
+          >
+            Group Challenge
+          </Button>
+        </>
       ) : (
         <Box 
           position="relative"
