@@ -81,6 +81,7 @@ export const Navbar = () => {
     <>
       {isMobile ? (
         <VStack spacing={2} align="stretch" width="100%">
+          {/* About Section */}
           <Box>
             <Button
               variant="ghost"
@@ -91,6 +92,7 @@ export const Navbar = () => {
               w="full"
               justifyContent="flex-start"
               px={0}
+              py={2}
             >
               About
             </Button>
@@ -106,6 +108,7 @@ export const Navbar = () => {
                     onClick={() => handleNavigation(item.href)}
                     w="full"
                     justifyContent="flex-start"
+                    py={2}
                   >
                     {item.label}
                   </Button>
@@ -113,6 +116,8 @@ export const Navbar = () => {
               </VStack>
             )}
           </Box>
+          
+          {/* Games and Stats */}
           <Button 
             variant="ghost" 
             size="sm"
@@ -122,6 +127,7 @@ export const Navbar = () => {
             w="full"
             justifyContent="flex-start"
             px={0}
+            py={2}
           >
             Games
           </Button>
@@ -134,15 +140,19 @@ export const Navbar = () => {
             w="full"
             justifyContent="flex-start"
             px={0}
+            py={2}
           >
             Stats
           </Button>
+
+          {/* Action Buttons */}
           <Button 
             colorScheme="teal" 
             size="sm"
             onClick={() => handleNavigation('/new-game')}
             w="full"
             justifyContent="flex-start"
+            py={2}
           >
             New Game
           </Button>
@@ -152,6 +162,7 @@ export const Navbar = () => {
             onClick={() => handleNavigation('/group-challenge')}
             w="full"
             justifyContent="flex-start"
+            py={2}
           >
             Group Challenge
           </Button>
@@ -168,6 +179,7 @@ export const Navbar = () => {
               size="sm"
               color="gray.300"
               _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+              py={2}
             >
               About
             </Button>
@@ -182,6 +194,7 @@ export const Navbar = () => {
             color="gray.300" 
             _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
             onClick={() => handleNavigation('/games')}
+            py={2}
           >
             Games
           </Button>
@@ -191,6 +204,7 @@ export const Navbar = () => {
             color="gray.300" 
             _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
             onClick={() => handleNavigation('/stats')}
+            py={2}
           >
             Stats
           </Button>
