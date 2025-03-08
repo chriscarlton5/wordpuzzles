@@ -42,7 +42,8 @@ const aboutItems = [
 ];
 
 export const Navbar = () => {
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isDesktopAboutOpen, setIsDesktopAboutOpen] = useState(false);
+  const [isMobileAboutOpen, setIsMobileAboutOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, logout } = useAuth();
@@ -82,40 +83,41 @@ export const Navbar = () => {
       {isMobile ? (
         <VStack spacing={2} align="stretch" width="100%">
           {/* About Section */}
-          <Box>
-            <Button
-              variant="ghost"
-              size="sm"
-              color="gray.300"
-              _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-              onClick={() => setIsAboutOpen(!isAboutOpen)}
-              w="full"
-              justifyContent="flex-start"
-              px={0}
-              py={2}
-            >
-              About
-            </Button>
-            {isAboutOpen && (
-              <VStack align="stretch" spacing={2} pl={4} mt={2}>
-                {aboutItems.map((item) => (
-                  <Button
-                    key={item.href}
-                    variant="ghost"
-                    size="sm"
-                    color="gray.300"
-                    _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                    onClick={() => handleNavigation(item.href)}
-                    w="full"
-                    justifyContent="flex-start"
-                    py={2}
-                  >
-                    {item.label}
-                  </Button>
-                ))}
-              </VStack>
-            )}
-          </Box>
+          <Button
+            variant="ghost"
+            size="sm"
+            color="gray.300"
+            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+            onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
+            w="full"
+            justifyContent="flex-start"
+            px={4}
+            py={2}
+            display="flex"
+            alignItems="center"
+          >
+            About
+          </Button>
+          {isMobileAboutOpen && (
+            <VStack align="stretch" spacing={2}>
+              {aboutItems.map((item) => (
+                <Button
+                  key={item.href}
+                  variant="ghost"
+                  size="sm"
+                  color="gray.300"
+                  _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+                  onClick={() => handleNavigation(item.href)}
+                  w="full"
+                  justifyContent="flex-start"
+                  px={8}
+                  py={2}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </VStack>
+          )}
           
           {/* Games and Stats */}
           <Button 
@@ -126,7 +128,7 @@ export const Navbar = () => {
             onClick={() => handleNavigation('/games')}
             w="full"
             justifyContent="flex-start"
-            px={0}
+            px={4}
             py={2}
           >
             Games
@@ -139,7 +141,7 @@ export const Navbar = () => {
             onClick={() => handleNavigation('/stats')}
             w="full"
             justifyContent="flex-start"
-            px={0}
+            px={4}
             py={2}
           >
             Stats
@@ -152,6 +154,7 @@ export const Navbar = () => {
             onClick={() => handleNavigation('/new-game')}
             w="full"
             justifyContent="flex-start"
+            px={4}
             py={2}
           >
             New Game
@@ -162,6 +165,7 @@ export const Navbar = () => {
             onClick={() => handleNavigation('/group-challenge')}
             w="full"
             justifyContent="flex-start"
+            px={4}
             py={2}
           >
             Group Challenge
@@ -171,21 +175,20 @@ export const Navbar = () => {
         <>
           <Box 
             position="relative"
-            onMouseEnter={() => setIsAboutOpen(true)}
-            onMouseLeave={() => setIsAboutOpen(false)}
+            onMouseEnter={() => setIsDesktopAboutOpen(true)}
+            onMouseLeave={() => setIsDesktopAboutOpen(false)}
           >
             <Button
               variant="ghost"
               size="sm"
               color="gray.300"
               _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-              py={2}
             >
               About
             </Button>
             <NavDropdown
               items={aboutItems}
-              isOpen={isAboutOpen}
+              isOpen={isDesktopAboutOpen}
             />
           </Box>
           <Button 
@@ -194,7 +197,6 @@ export const Navbar = () => {
             color="gray.300" 
             _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
             onClick={() => handleNavigation('/games')}
-            py={2}
           >
             Games
           </Button>
@@ -204,7 +206,6 @@ export const Navbar = () => {
             color="gray.300" 
             _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
             onClick={() => handleNavigation('/stats')}
-            py={2}
           >
             Stats
           </Button>
