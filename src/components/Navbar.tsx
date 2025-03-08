@@ -20,14 +20,9 @@ import {
   DrawerCloseButton,
   useDisclosure,
   VStack,
-  useBreakpointValue,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon
+  useBreakpointValue
 } from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { NavDropdown } from './NavDropdown';
 import { useAuth } from '../firebase/AuthContext';
@@ -78,139 +73,136 @@ export const Navbar = () => {
     }
   };
 
-  const NavigationItems = () => (
-    <>
-      {isMobile ? (
-        <VStack spacing={2} align="stretch" width="100%">
-          {/* About Section */}
-          <Button
-            variant="ghost"
-            size="sm"
-            color="gray.300"
-            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-            onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
-            w="full"
-            justifyContent="flex-start"
-            px={4}
-            py={2}
-            display="flex"
-            alignItems="center"
-          >
-            About
-          </Button>
-          {isMobileAboutOpen && (
-            <VStack align="stretch" spacing={2}>
-              {aboutItems.map((item) => (
-                <Button
-                  key={item.href}
-                  variant="ghost"
-                  size="sm"
-                  color="gray.300"
-                  _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                  onClick={() => handleNavigation(item.href)}
-                  w="full"
-                  justifyContent="flex-start"
-                  px={8}
-                  py={2}
-                >
-                  {item.label}
-                </Button>
-              ))}
-            </VStack>
-          )}
-          
-          {/* Games and Stats */}
-          <Button 
-            variant="ghost" 
-            size="sm"
-            color="gray.300" 
-            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-            onClick={() => handleNavigation('/games')}
-            w="full"
-            justifyContent="flex-start"
-            px={4}
-            py={2}
-          >
-            Games
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="sm"
-            color="gray.300" 
-            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-            onClick={() => handleNavigation('/stats')}
-            w="full"
-            justifyContent="flex-start"
-            px={4}
-            py={2}
-          >
-            Stats
-          </Button>
-
-          {/* Action Buttons */}
-          <Button 
-            colorScheme="teal" 
-            size="sm"
-            onClick={() => handleNavigation('/new-game')}
-            w="full"
-            justifyContent="flex-start"
-            px={4}
-            py={2}
-          >
-            New Game
-          </Button>
-          <Button 
-            colorScheme="purple" 
-            size="sm"
-            onClick={() => handleNavigation('/group-challenge')}
-            w="full"
-            justifyContent="flex-start"
-            px={4}
-            py={2}
-          >
-            Group Challenge
-          </Button>
-        </VStack>
-      ) : (
-        <>
-          <Box 
-            position="relative"
-            onMouseEnter={() => setIsDesktopAboutOpen(true)}
-            onMouseLeave={() => setIsDesktopAboutOpen(false)}
-          >
+  const MobileNavigationItems = () => (
+    <VStack spacing={2} align="stretch" width="100%">
+      {/* About Section */}
+      <Button
+        variant="ghost"
+        size="sm"
+        color="gray.300"
+        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
+        w="full"
+        justifyContent="space-between"
+        px={4}
+        py={2}
+        rightIcon={isMobileAboutOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+      >
+        About
+      </Button>
+      {isMobileAboutOpen && (
+        <VStack align="stretch" spacing={2}>
+          {aboutItems.map((item) => (
             <Button
+              key={item.href}
               variant="ghost"
               size="sm"
               color="gray.300"
               _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+              onClick={() => handleNavigation(item.href)}
+              w="full"
+              justifyContent="flex-start"
+              px={8}
+              py={2}
             >
-              About
+              {item.label}
             </Button>
-            <NavDropdown
-              items={aboutItems}
-              isOpen={isDesktopAboutOpen}
-            />
-          </Box>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            color="gray.300" 
-            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-            onClick={() => handleNavigation('/games')}
-          >
-            Games
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            color="gray.300" 
-            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-            onClick={() => handleNavigation('/stats')}
-          >
-            Stats
-          </Button>
-        </>
+          ))}
+        </VStack>
       )}
+      
+      {/* Navigation Items */}
+      <Button 
+        variant="ghost" 
+        size="sm"
+        color="gray.300" 
+        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        onClick={() => handleNavigation('/games')}
+        w="full"
+        justifyContent="flex-start"
+        px={4}
+        py={2}
+      >
+        Games
+      </Button>
+      <Button 
+        variant="ghost" 
+        size="sm"
+        color="gray.300" 
+        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        onClick={() => handleNavigation('/stats')}
+        w="full"
+        justifyContent="flex-start"
+        px={4}
+        py={2}
+      >
+        Stats
+      </Button>
+
+      {/* Action Buttons */}
+      <Button 
+        colorScheme="teal" 
+        size="sm"
+        onClick={() => handleNavigation('/new-game')}
+        w="full"
+        justifyContent="flex-start"
+        px={4}
+        py={2}
+      >
+        New Game
+      </Button>
+      <Button 
+        colorScheme="purple" 
+        size="sm"
+        onClick={() => handleNavigation('/group-challenge')}
+        w="full"
+        justifyContent="flex-start"
+        px={4}
+        py={2}
+      >
+        Group Challenge
+      </Button>
+    </VStack>
+  );
+
+  const DesktopNavigationItems = () => (
+    <>
+      <Box 
+        position="relative"
+        onMouseEnter={() => setIsDesktopAboutOpen(true)}
+        onMouseLeave={() => setIsDesktopAboutOpen(false)}
+      >
+        <Button
+          variant="ghost"
+          size="sm"
+          color="gray.300"
+          _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        >
+          About
+        </Button>
+        <NavDropdown
+          items={aboutItems}
+          isOpen={isDesktopAboutOpen}
+        />
+      </Box>
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        color="gray.300" 
+        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        onClick={() => handleNavigation('/games')}
+      >
+        Games
+      </Button>
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        color="gray.300" 
+        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+        onClick={() => handleNavigation('/stats')}
+      >
+        Stats
+      </Button>
     </>
   );
 
@@ -231,7 +223,7 @@ export const Navbar = () => {
               </Flex>
               {!isMobile && (
                 <HStack spacing={6} color="whiteAlpha.800">
-                  <NavigationItems />
+                  <DesktopNavigationItems />
                 </HStack>
               )}
             </HStack>
@@ -307,9 +299,7 @@ export const Navbar = () => {
           <DrawerCloseButton color="white" />
           <DrawerHeader color="white">Menu</DrawerHeader>
           <DrawerBody>
-            <VStack spacing={4} align="stretch">
-              <NavigationItems />
-            </VStack>
+            <MobileNavigationItems />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
