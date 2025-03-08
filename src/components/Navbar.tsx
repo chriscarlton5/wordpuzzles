@@ -80,41 +80,39 @@ export const Navbar = () => {
   const NavigationItems = () => (
     <>
       {isMobile ? (
-        <>
-          <Accordion allowToggle width="100%">
-            <AccordionItem border="none">
-              <AccordionButton
-                color="gray.300"
-                _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                px={0}
-                py={2}
-              >
-                <Text fontSize="sm" flex="1" textAlign="left">
-                  About
-                </Text>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel pb={4} px={0}>
-                <VStack align="stretch" spacing={2}>
-                  {aboutItems.map((item) => (
-                    <Button
-                      key={item.href}
-                      variant="ghost"
-                      size="sm"
-                      color="gray.300"
-                      _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-                      onClick={() => handleNavigation(item.href)}
-                      w="full"
-                      justifyContent="flex-start"
-                      pl={4}
-                    >
-                      {item.label}
-                    </Button>
-                  ))}
-                </VStack>
-              </AccordionPanel>
-            </AccordionItem>
-          </Accordion>
+        <VStack spacing={2} align="stretch" width="100%">
+          <Box>
+            <Button
+              variant="ghost"
+              size="sm"
+              color="gray.300"
+              _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+              onClick={() => setIsAboutOpen(!isAboutOpen)}
+              w="full"
+              justifyContent="flex-start"
+              px={0}
+            >
+              About
+            </Button>
+            {isAboutOpen && (
+              <VStack align="stretch" spacing={2} pl={4} mt={2}>
+                {aboutItems.map((item) => (
+                  <Button
+                    key={item.href}
+                    variant="ghost"
+                    size="sm"
+                    color="gray.300"
+                    _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+                    onClick={() => handleNavigation(item.href)}
+                    w="full"
+                    justifyContent="flex-start"
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+              </VStack>
+            )}
+          </Box>
           <Button 
             variant="ghost" 
             size="sm"
@@ -157,68 +155,44 @@ export const Navbar = () => {
           >
             Group Challenge
           </Button>
-        </>
+        </VStack>
       ) : (
-        <Box 
-          position="relative"
-          onMouseEnter={() => setIsAboutOpen(true)}
-          onMouseLeave={() => setIsAboutOpen(false)}
-        >
-          <Button
-            variant="ghost"
-            size="sm"
-            color="gray.300"
-            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-          >
-            About
-          </Button>
-          <NavDropdown
-            items={aboutItems}
-            isOpen={isAboutOpen}
-          />
-        </Box>
-      )}
-      <Button 
-        variant="ghost" 
-        size="sm" 
-        color="gray.300" 
-        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-        onClick={() => handleNavigation('/games')}
-        w={isMobile ? "full" : "auto"}
-        justifyContent={isMobile ? "flex-start" : "center"}
-      >
-        Games
-      </Button>
-      <Button 
-        variant="ghost" 
-        size="sm" 
-        color="gray.300" 
-        _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-        onClick={() => handleNavigation('/stats')}
-        w={isMobile ? "full" : "auto"}
-        justifyContent={isMobile ? "flex-start" : "center"}
-      >
-        Stats
-      </Button>
-      {isMobile && (
         <>
-          <Button 
-            colorScheme="teal" 
-            size="sm"
-            onClick={() => handleNavigation('/new-game')}
-            w="full"
-            justifyContent="flex-start"
+          <Box 
+            position="relative"
+            onMouseEnter={() => setIsAboutOpen(true)}
+            onMouseLeave={() => setIsAboutOpen(false)}
           >
-            New Game
+            <Button
+              variant="ghost"
+              size="sm"
+              color="gray.300"
+              _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+            >
+              About
+            </Button>
+            <NavDropdown
+              items={aboutItems}
+              isOpen={isAboutOpen}
+            />
+          </Box>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            color="gray.300" 
+            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+            onClick={() => handleNavigation('/games')}
+          >
+            Games
           </Button>
           <Button 
-            colorScheme="purple" 
-            size="sm"
-            onClick={() => handleNavigation('/group-challenge')}
-            w="full"
-            justifyContent="flex-start"
+            variant="ghost" 
+            size="sm" 
+            color="gray.300" 
+            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+            onClick={() => handleNavigation('/stats')}
           >
-            Group Challenge
+            Stats
           </Button>
         </>
       )}
@@ -248,15 +222,7 @@ export const Navbar = () => {
             </HStack>
             
             <HStack spacing={4}>
-              {isMobile ? (
-                <IconButton
-                  aria-label="Open menu"
-                  icon={<HamburgerIcon />}
-                  variant="ghost"
-                  color="white"
-                  onClick={onOpen}
-                />
-              ) : (
+              {!isMobile && (
                 <>
                   <Button 
                     colorScheme="teal" 
@@ -273,6 +239,15 @@ export const Navbar = () => {
                     Group Challenge
                   </Button>
                 </>
+              )}
+              {isMobile && (
+                <IconButton
+                  aria-label="Open menu"
+                  icon={<HamburgerIcon />}
+                  variant="ghost"
+                  color="white"
+                  onClick={onOpen}
+                />
               )}
               {user ? (
                 <Menu>
