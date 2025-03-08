@@ -20,7 +20,12 @@ import {
   DrawerCloseButton,
   useDisclosure,
   VStack,
-  useBreakpointValue
+  useBreakpointValue,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
@@ -65,37 +70,75 @@ export const Navbar = () => {
     }
   };
 
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    if (isMobile) {
+      onClose(); // Close the drawer when navigating
+    }
+  };
+
   const NavigationItems = () => (
     <>
-      <Box 
-        position="relative"
-        onMouseEnter={() => !isMobile && setIsAboutOpen(true)}
-        onMouseLeave={() => !isMobile && setIsAboutOpen(false)}
-      >
-        <Button
-          variant="ghost"
-          size="sm"
-          color="gray.300"
-          _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-          onClick={() => isMobile && navigate('/how-to-play')}
-          w={isMobile ? "full" : "auto"}
-          justifyContent={isMobile ? "flex-start" : "center"}
+      {isMobile ? (
+        <Accordion allowToggle>
+          <AccordionItem border="none">
+            <AccordionButton
+              color="gray.300"
+              _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+              px={0}
+            >
+              <Box flex="1" textAlign="left">
+                About
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel pb={4} px={0}>
+              <VStack align="stretch" spacing={2}>
+                {aboutItems.map((item) => (
+                  <Button
+                    key={item.href}
+                    variant="ghost"
+                    size="sm"
+                    color="gray.300"
+                    _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+                    onClick={() => handleNavigation(item.href)}
+                    w="full"
+                    justifyContent="flex-start"
+                    pl={4}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+              </VStack>
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+      ) : (
+        <Box 
+          position="relative"
+          onMouseEnter={() => setIsAboutOpen(true)}
+          onMouseLeave={() => setIsAboutOpen(false)}
         >
-          About
-        </Button>
-        {!isMobile && (
+          <Button
+            variant="ghost"
+            size="sm"
+            color="gray.300"
+            _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
+          >
+            About
+          </Button>
           <NavDropdown
             items={aboutItems}
             isOpen={isAboutOpen}
           />
-        )}
-      </Box>
+        </Box>
+      )}
       <Button 
         variant="ghost" 
         size="sm" 
         color="gray.300" 
         _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-        onClick={() => navigate('/games')}
+        onClick={() => handleNavigation('/games')}
         w={isMobile ? "full" : "auto"}
         justifyContent={isMobile ? "flex-start" : "center"}
       >
@@ -106,7 +149,7 @@ export const Navbar = () => {
         size="sm" 
         color="gray.300" 
         _hover={{ bg: 'whiteAlpha.200', color: 'white' }}
-        onClick={() => navigate('/stats')}
+        onClick={() => handleNavigation('/stats')}
         w={isMobile ? "full" : "auto"}
         justifyContent={isMobile ? "flex-start" : "center"}
       >
@@ -117,7 +160,7 @@ export const Navbar = () => {
           <Button 
             colorScheme="teal" 
             size="sm"
-            onClick={() => navigate('/new-game')}
+            onClick={() => handleNavigation('/new-game')}
             w="full"
             justifyContent="flex-start"
           >
@@ -126,7 +169,7 @@ export const Navbar = () => {
           <Button 
             colorScheme="purple" 
             size="sm"
-            onClick={() => navigate('/group-challenge')}
+            onClick={() => handleNavigation('/group-challenge')}
             w="full"
             justifyContent="flex-start"
           >
