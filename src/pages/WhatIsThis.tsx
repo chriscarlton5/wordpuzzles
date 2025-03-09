@@ -67,7 +67,7 @@ export const WhatIsThis = () => {
                 <Heading as="h4" size="md">It's educational -- sort of</Heading>
               </Box>
               <Text color="gray.600">
-                I built this for my cousin. As such I plan to sneak in some actual education while playing. We already have definitions for words. I'll also add synonyms, rhymes and other things. Stay tuned.
+                Word games are fun, but they also help keep your brain sharp. The more you can play, the more you can learn!
               </Text>
             </VStack>
           </Box>
