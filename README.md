@@ -1,4 +1,4 @@
-# WordPlay - Unlimited Wordle Clone
+# WordPuzzles - Unlimited Wordle Clone
 
 A React-based Wordle clone that lets you play unlimited times. Built with React, TypeScript, and Chakra UI.
 

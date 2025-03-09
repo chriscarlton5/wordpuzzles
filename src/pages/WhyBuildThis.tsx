@@ -9,7 +9,7 @@ export const WhyBuildThis = () => {
         </Heading>
         
         <Text color="gray.700">
-          Or better yet, why would *I* do this? That's a really good question. My wife has asked
+          Or better yet, why would *I* do this? That's a really good question. My girlfriend has asked
           me the same question.
         </Text>
 
@@ -24,14 +24,14 @@ export const WhyBuildThis = () => {
         </Text>
 
         <Text color="gray.700">
-          One weekend, I was chatting with my 11 year old who is taking Python programming
+          One weekend, I was chatting with my 11 year old cousin who is taking Python programming
           classes. He's still very, very early in his programming journey. But, I wanted to show
           him what was possible with programming by actually developing an application and
           launching it to the public.
         </Text>
 
         <Text color="gray.700">
-          So, that night, I decided to hack something together. It was partly to inspire my son,
+          So, that night, I decided to hack something together. It was partly to inspire my cousin,
           partly to scratch my own itch and partly to help me learn about some newer
           technologies. I learn by doing. Also, I really love building things. Some people have a
           woodshop and build cool things with their hands. I don't have that skill. But, I have a
@@ -43,12 +43,12 @@ export const WhyBuildThis = () => {
         </Heading>
 
         <Text color="gray.700">
-          The first feature in WordPlay wasn't actually the game, it was called "First Word" -- and
+          The first idea for WordPuzzles wasn't actually the game, it was called "First Word" -- and
           it was a tool to help you figure out how "good" your first guess was. But, I soon decided
           that it's really hard to get better at the game (and pick better words) if you can't
           actually try it out by "playing" the game. And, as it turns out, writing the app to play the
-          game was easier than the analytics tool to grade your first word. And, so WordPlay was
-          born.
+          game was easier than the analytics tool to grade your first word. And, so WordPuzzles was
+          born. I plan to release the analytics tool later. Also, since the domain is plural, there will be more word puzzles to come. 
         </Text>
       </VStack>
     </Container>

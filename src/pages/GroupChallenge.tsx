@@ -82,7 +82,7 @@ export const GroupChallenge: React.FC = () => {
             Create Group Challenge
           </Heading>
           <Text color="gray.600" fontSize="lg">
-            Create a WordPlay challenge to play with your friends and family. Enter
+            Create a WordPuzzles challenge to play with your friends and family. Enter
             a simple name for the challenge, and we'll create a link you can send to
             the group.
           </Text>

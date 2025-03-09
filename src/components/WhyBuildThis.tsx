@@ -43,11 +43,11 @@ export const WhyBuildThis = () => {
         </Heading>
 
         <Text color="gray.700">
-          The first feature in WordPlay wasn't actually the game, it was called "First Word" -- and
+          The first feature in WordPuzzles wasn't actually the game, it was called "First Word" -- and
           it was a tool to help you figure out how "good" your first guess was. But, I soon decided
           that it's really hard to get better at the game (and pick better words) if you can't
           actually try it out by "playing" the game. And, as it turns out, writing the app to play the
-          game was easier than the analytics tool to grade your first word. And, so WordPlay was
+          game was easier than the analytics tool to grade your first word. And, so WordPuzzles was
           born.
         </Text>
       </VStack>
