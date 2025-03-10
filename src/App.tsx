@@ -30,6 +30,10 @@ import {
 } from './utils/gameSharing';
 import { updateGameStats } from './firebase/db';
 import { Stats } from './components/Stats';
+import Footer from './components/Footer';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Sitemap from './pages/Sitemap';
 
 const WORD_LENGTH = 5;
 const MAX_GUESSES = 6;
@@ -341,14 +345,18 @@ export default function App() {
   return (
     <AuthProvider>
       <Router>
-        <Box minH="100vh" bg="gray.50">
+        <Box minH="100vh" display="flex" flexDirection="column">
           <Navbar />
           <Routes>
             <Route path="/" element={<GameComponent />} />
             <Route path="/how-to-play" element={<HowToPlay />} />
             <Route path="/what-is-this" element={<WhatIsThis />} />
             <Route path="/why-build-this" element={<WhyBuildThis />} />
-            <Route path="/group-challenge" element={<GroupChallenge />} />
+            <Route path="/group-challenge" element={
+              <ProtectedRoute>
+                <GroupChallenge />
+              </ProtectedRoute>
+            } />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/stats" element={
@@ -356,8 +364,12 @@ export default function App() {
                 <Stats />
               </ProtectedRoute>
             } />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/sitemap" element={<Sitemap />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          <Footer />
         </Box>
       </Router>
     </AuthProvider>
