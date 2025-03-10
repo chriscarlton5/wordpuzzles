@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Background -->
-  <rect width="1200" height="630" fill="#1A202C"/>
+  <rect width="1200" height="630" fill="#FFFFFF"/>
   
   <!-- Logo -->
-  <text x="600" y="315" text-anchor="middle" fill="#00A4A6" font-family="Arial" font-size="72" font-weight="bold">
-    WordPuzzles
-  </text>
-  
-  <!-- Tagline -->
-  <text x="600" y="400" text-anchor="middle" fill="#A0AEC0" font-family="Arial" font-size="24">
-    Unlimited Free Word Puzzles!
-  </text>
+  <g transform="translate(600, 315)">
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="120">
+      <tspan fill="#00A4A6">W</tspan>
+      <tspan fill="#48BB78">O</tspan>
+      <tspan fill="#ECC94B">R</tspan>
+      <tspan fill="#F56565">D</tspan>
+      <tspan fill="#2D3748" font-weight="normal">Puzzles</tspan>
+    </text>
+  </g>
 </svg> 
