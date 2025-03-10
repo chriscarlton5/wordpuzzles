@@ -176,6 +176,7 @@ const GameComponent = () => {
 
   const handleCopyGameId = async () => {
     const shareUrl = generateShareUrl(gameId, user?.displayName || undefined);
+    if (!shareUrl) return;
     await copyToClipboard(shareUrl);
     toast({
       title: 'Game link copied!',
