@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, Container, Heading, Text, VStack, Link } from '@chakra-ui/react';
+import { Box, Container, Heading, VStack, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 
 const Sitemap: FC = () => {
