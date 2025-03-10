@@ -36,7 +36,7 @@ const WORD_LENGTH = 5;
 const MAX_GUESSES = 6;
 
 // Function to update meta tags for better link previews
-const updateMetaTags = (gameId: number, challenger?: string | null) => {
+const updateMetaTags = (challenger?: string | null) => {
   const title = challenger 
     ? `${challenger} has challenged you to a WordPuzzle!`
     : 'WordPuzzles.org - Daily Word Puzzles';
@@ -63,7 +63,7 @@ const GameComponent = () => {
   const [gameId, setGameId] = useState<number>(() => {
     const { gameId, challenger } = getGameInfoFromUrl();
     if (gameId) {
-      updateMetaTags(gameId, challenger);
+      updateMetaTags(challenger);
     }
     return gameId || generateGameId();
   });
@@ -176,8 +176,7 @@ const GameComponent = () => {
 
   const handleCopyGameId = async () => {
     const shareUrl = generateShareUrl(gameId, user?.displayName || undefined);
-    const shareMessage = generateShareMessage(gameId, user?.displayName || undefined);
-    await copyToClipboard(shareMessage);
+    await copyToClipboard(shareUrl);
     toast({
       title: 'Game link copied!',
       description: 'Share this link with your friends to play the same game.',
