@@ -34,6 +34,7 @@ const aboutItems = [
   { label: 'What Is This?', href: '/what-is-this' },
   { label: 'Why Build This?', href: '/why-build-this' },
   { label: 'Where is the community?', href: '/community' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const Navbar = () => {

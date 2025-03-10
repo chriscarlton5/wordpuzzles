@@ -34,6 +34,7 @@ import Footer from './components/Footer';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import Sitemap from './pages/Sitemap';
+import Contact from './pages/Contact';
 
 const WORD_LENGTH = 5;
 const MAX_GUESSES = 6;
@@ -347,28 +348,31 @@ export default function App() {
       <Router>
         <Box minH="100vh" display="flex" flexDirection="column">
           <Navbar />
-          <Routes>
-            <Route path="/" element={<GameComponent />} />
-            <Route path="/how-to-play" element={<HowToPlay />} />
-            <Route path="/what-is-this" element={<WhatIsThis />} />
-            <Route path="/why-build-this" element={<WhyBuildThis />} />
-            <Route path="/group-challenge" element={
-              <ProtectedRoute>
-                <GroupChallenge />
-              </ProtectedRoute>
-            } />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/stats" element={
-              <ProtectedRoute>
-                <Stats />
-              </ProtectedRoute>
-            } />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/sitemap" element={<Sitemap />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
+          <Box flex="1">
+            <Routes>
+              <Route path="/" element={<GameComponent />} />
+              <Route path="/how-to-play" element={<HowToPlay />} />
+              <Route path="/what-is-this" element={<WhatIsThis />} />
+              <Route path="/why-build-this" element={<WhyBuildThis />} />
+              <Route path="/group-challenge" element={
+                <ProtectedRoute>
+                  <GroupChallenge />
+                </ProtectedRoute>
+              } />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/stats" element={
+                <ProtectedRoute>
+                  <Stats />
+                </ProtectedRoute>
+              } />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/sitemap" element={<Sitemap />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Box>
           <Footer />
         </Box>
       </Router>
