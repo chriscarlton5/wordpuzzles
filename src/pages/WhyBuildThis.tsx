@@ -24,14 +24,14 @@ export const WhyBuildThis = () => {
 
         <Text color="gray.700">
         One morning, I was chatting with my girlfriend while playing the Wordle over coffee (our morning routine).
-          She mentioned how much she loved our morning ritual, but hated when she solved Wordle too fast, and then had to wait 24 hours for the next puzzle.
-          I agreed. Why should she have to wait?
+        She mentioned how much she loved our morning ritual, but hated when she solved Wordle too fast, and then had to wait 24 hours for the next puzzle.
+        I agreed. Why should she have to wait?
         </Text>
 
         <Text color="gray.700">
-        So, that night, I decided to hack something together. I'm not a professional developer, so progress was slow. 
-          This game is the result. It's not perfect. But it is built with love. 
-          I hope you enjoy it after solving Wordle a little too quickly over morning coffee.
+        That night, I decided to hack something together. I'm not a professional developer, so progress was slow. 
+        This game is the result. It's not perfect. But it is built with love. 
+        I hope you enjoy it after solving Wordle a little too quickly over morning coffee.
         </Text>
 
         <Heading as="h2" size="lg" mt={6} mb={3} color="gray.700">
