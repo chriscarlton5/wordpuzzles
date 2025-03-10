@@ -24,7 +24,6 @@ import {
   copyToClipboard,
   getGameInfoFromUrl,
   generateShareUrl,
-  generateShareMessage,
   getDailyChallengeGameId,
   getDailyChallengeWord,
   isDailyChallenge
