@@ -22,8 +22,9 @@ import {
   generateGameId,
   getWordFromGameId,
   copyToClipboard,
-  getGameIdFromUrl,
+  getGameInfoFromUrl,
   generateShareUrl,
+  generateShareMessage,
   getDailyChallengeGameId,
   getDailyChallengeWord,
   isDailyChallenge
@@ -34,23 +35,47 @@ import { Stats } from './components/Stats';
 const WORD_LENGTH = 5;
 const MAX_GUESSES = 6;
 
+// Function to update meta tags for better link previews
+const updateMetaTags = (gameId: number, challenger?: string | null) => {
+  const title = challenger 
+    ? `${challenger} has challenged you to a WordPuzzle!`
+    : 'WordPuzzles.org - Daily Word Puzzles';
+  
+  const description = challenger
+    ? `Can you solve this WordPuzzle challenge from ${challenger}?`
+    : 'Challenge your friends to solve daily word puzzles! Play now and test your vocabulary skills.';
+  
+  const url = window.location.origin + window.location.pathname + window.location.search;
+  
+  // Update meta tags
+  document.title = title;
+  document.querySelector('meta[name="title"]')?.setAttribute('content', title);
+  document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+  document.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+  document.querySelector('meta[property="twitter:title"]')?.setAttribute('content', title);
+  document.querySelector('meta[property="twitter:description"]')?.setAttribute('content', description);
+  document.querySelector('meta[property="twitter:url"]')?.setAttribute('content', url);
+};
+
 const GameComponent = () => {
   const [gameId, setGameId] = useState<number>(() => {
-    const urlGameId = getGameIdFromUrl();
-    return urlGameId || getDailyChallengeGameId();
+    const { gameId, challenger } = getGameInfoFromUrl();
+    if (gameId) {
+      updateMetaTags(gameId, challenger);
+    }
+    return gameId || generateGameId();
   });
-  const [solution, setSolution] = useState(() => {
-    const urlGameId = getGameIdFromUrl();
-    return urlGameId ? getWordFromGameId(urlGameId) : getDailyChallengeWord();
-  });
-  const [isDaily, setIsDaily] = useState(() => isDailyChallenge(gameId));
+  const [solution, setSolution] = useState<string>(() => getWordFromGameId(gameId));
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState('');
   const [gameStatus, setGameStatus] = useState<GameStatus>('playing');
   const [usedLetters, setUsedLetters] = useState<Record<string, LetterStatus>>({});
   const [letterStatuses, setLetterStatuses] = useState<Record<number, LetterStatus[]>>({});
-  const toast = useToast();
+  const [isDaily, setIsDaily] = useState(() => isDailyChallenge(gameId));
   const { user } = useAuth();
+  const toast = useToast();
 
   // Check if we need to update to today's daily challenge
   useEffect(() => {
@@ -150,8 +175,9 @@ const GameComponent = () => {
   };
 
   const handleCopyGameId = async () => {
-    const shareUrl = generateShareUrl(gameId);
-    await copyToClipboard(shareUrl);
+    const shareUrl = generateShareUrl(gameId, user?.displayName || undefined);
+    const shareMessage = generateShareMessage(gameId, user?.displayName || undefined);
+    await copyToClipboard(shareMessage);
     toast({
       title: 'Game link copied!',
       description: 'Share this link with your friends to play the same game.',

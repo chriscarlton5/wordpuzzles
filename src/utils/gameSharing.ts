@@ -25,17 +25,41 @@ export const setCustomChallengeWord = (gameId: number, word: string): void => {
   customChallengeWords[gameId] = word.toLowerCase();
 };
 
-// Generate a shareable URL for a game
-export const generateShareUrl = (gameId: number): string => {
+// Generate a personalized share message
+export const generateShareMessage = (gameId: number, userName?: string): string => {
   const baseUrl = window.location.origin;
-  return `${baseUrl}?game=${gameId}`;
+  const shareUrl = `${baseUrl}?game=${gameId}`;
+  
+  if (userName) {
+    return `${userName} has challenged you to a WordPuzzle! Can you solve it? ${shareUrl}`;
+  }
+  
+  return `I've created a WordPuzzle challenge! Can you solve it? ${shareUrl}`;
 };
 
-// Get game ID from URL if present
-export const getGameIdFromUrl = (): number | null => {
+// Generate a shareable URL for a game
+export const generateShareUrl = (gameId: number, userName?: string): string => {
+  const baseUrl = window.location.origin;
+  const params = new URLSearchParams();
+  params.set('game', gameId.toString());
+  
+  if (userName) {
+    params.set('challenger', encodeURIComponent(userName));
+  }
+  
+  return `${baseUrl}?${params.toString()}`;
+};
+
+// Get game ID and challenger from URL if present
+export const getGameInfoFromUrl = (): { gameId: number | null; challenger: string | null } => {
   const params = new URLSearchParams(window.location.search);
   const gameId = params.get('game');
-  return gameId ? parseInt(gameId) : null;
+  const challenger = params.get('challenger');
+  
+  return {
+    gameId: gameId ? parseInt(gameId) : null,
+    challenger: challenger ? decodeURIComponent(challenger) : null
+  };
 };
 
 // Copy text to clipboard
