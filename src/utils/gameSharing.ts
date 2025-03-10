@@ -31,10 +31,10 @@ export const generateShareMessage = (gameId: number, userName?: string): string 
   const shareUrl = `${baseUrl}?game=${gameId}`;
   
   if (userName) {
-    return `${userName} has challenged you to a WordPuzzle! Can you solve it? ${shareUrl}`;
+    return `${userName} has challenged you to a WordPuzzle! ${shareUrl}`;
   }
   
-  return `I've created a WordPuzzle challenge! Can you solve it? ${shareUrl}`;
+  return `Can you solve this WordPuzzle? ${shareUrl}`;
 };
 
 // Generate a shareable URL for a game

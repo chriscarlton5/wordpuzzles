@@ -38,11 +38,11 @@ const MAX_GUESSES = 6;
 const updateMetaTags = (challenger?: string | null) => {
   const title = challenger 
     ? `${challenger} has challenged you to a WordPuzzle!`
-    : 'WordPuzzles.org - Daily Word Puzzles';
+    : 'WordPuzzles.org - Unlimited Free Word Puzzles!';
   
   const description = challenger
     ? `Can you solve this WordPuzzle challenge from ${challenger}?`
-    : 'Challenge your friends to solve daily word puzzles! Play now and test your vocabulary skills.';
+    : 'Unlimited Free Word Puzzles! Challenge your friends and test your vocabulary skills.';
   
   const url = window.location.origin + window.location.pathname + window.location.search;
   
